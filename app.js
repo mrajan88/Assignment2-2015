@@ -196,6 +196,7 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
                   user_id: item.id,
                   access_token: user.ig_access_token,
                   complete: function(data) {
+<<<<<<< HEAD
                   mediaCounts =  mediaCounts.sort(function(a,b) {
                     return parseFloat(a.counts.media) - parseFloat(b.counts.media);
                   } );
@@ -204,6 +205,14 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
                      } );*/
                   mediaCounts.push(data);
                   callback();
+=======
+                    
+                   mediaCounts =  mediaCounts.sort(function(a,b) {
+                    return parseInt(b.counts.media) - parseInt(a.counts.media);
+                     } );
+                    mediaCounts.push(data);
+                    callback();
+>>>>>>> 4678970a54ad5a72d656b388aeb19730905c812b
                   }
                 });            
             });
