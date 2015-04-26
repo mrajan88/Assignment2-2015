@@ -196,8 +196,14 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
                   user_id: item.id,
                   access_token: user.ig_access_token,
                   complete: function(data) {
-                    mediaCounts.push(data);
-                    callback();
+                  mediaCounts =  mediaCounts.sort(function(a,b) {
+                    return parseFloat(a.counts.media) - parseFloat(b.counts.media);
+                  } );
+                  /* mediaCounts =  mediaCounts.sort(function(a,b) {
+                    return parseFloat(a.counts.media) - parseFloat(b.counts.media);
+                     } );*/
+                  mediaCounts.push(data);
+                  callback();
                   }
                 });            
             });
@@ -220,9 +226,16 @@ app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
 }); 
 
-
 app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualization');
+}); 
+
+app.get('/newvisualization', ensureAuthenticatedInstagram, function (req, res){
+  res.render('newvisualization');
+}); 
+
+app.get('/newc3visualization', ensureAuthenticatedInstagram, function (req, res){
+  res.render('newc3visualization');
 }); 
 
 app.get('/auth/instagram',
