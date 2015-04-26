@@ -21,15 +21,20 @@ var yAxis = d3.svg.axis()
 
 var tip = d3.tip()
   .attr('class', 'd3-tip')
-  .html(function(d) { return d; })
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + "</span>";
+  })
 
 //create svg
 var svg = d3.select("body").append("svg")
-  .call(tip)
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
 
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
@@ -71,16 +76,11 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); });
-
-  svg.append('rect')
-    .attr('width', 10)
-    .attr('height', 10)
-    // Show and hide the tooltip
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
-
-    rect.on('mouseover', function(d) {
-    tip.show(d)
-})
-
+    
 });
+/*
+function type(d) {
+  d.frequency = +d.frequency;
+  return d;
+}
+*/
