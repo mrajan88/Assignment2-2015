@@ -19,8 +19,13 @@ var yAxis = d3.svg.axis()
   .scale(scaleY)
   .orient("left");
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) { return d; })
+
 //create svg
 var svg = d3.select("body").append("svg")
+  .call(tip)
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -66,4 +71,16 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); });
+
+  svg.append('rect')
+    .attr('width', 10)
+    .attr('height', 10)
+    // Show and hide the tooltip
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
+
+    rect.on('mouseover', function(d) {
+    tip.show(d)
+})
+
 });
