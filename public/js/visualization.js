@@ -76,7 +76,8 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); });
-    
+    /*.on('mouseover', tip.show)
+    .on('mouseout', tip.hide)*/
 });
 /*
 function type(d) {
