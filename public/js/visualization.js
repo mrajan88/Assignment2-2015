@@ -23,7 +23,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>Number of photos:</strong> <span style='color:red'>" + d.counts.media + "</span>";
+    return d.username + " has  <span style='color:red'>" + d.counts.media + " photos</span>";
   })
 
 //create svg
