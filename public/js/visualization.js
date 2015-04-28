@@ -23,7 +23,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return d.username + " has  <span style='color:red'>" + d.counts.media + " photos </span>";
+    return "<img src='" + d.profile_picture + "' width='100' height='100'><br>" + d.full_name + "<br>" + d.username + "<br>" +  d.counts.media + " Posts<br>" + d.counts.followed_by + " Followers<br> " + d.counts.follows + " Following<br>";
   })
 
 //create svg
