@@ -78,3 +78,14 @@
   left: 100%;
 }
 
+#chart{
+padding-top: 100px;
+
+}
+
+#cover {
+    background: url("http://www.ecloudtimes.com/wp-content/uploads/2014/08/loading.jpeg") no-repeat scroll center center #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}

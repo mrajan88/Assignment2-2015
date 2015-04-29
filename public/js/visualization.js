@@ -21,7 +21,6 @@ var yAxis = d3.svg.axis()
 
 var tip = d3.tip()
   .attr('class', 'd3-tip')
-  .direction('e')
   .offset([-10, 0])
   .html(function(d) {
     return "<img src='" + d.profile_picture + "' width='100' height='100'><br>" + d.full_name + "<br>" + d.username + "<br>" +  d.counts.media + " Posts<br>" + d.counts.followed_by + " Followers<br> " + d.counts.follows + " Following<br>";
@@ -78,7 +77,7 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); })
     .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
+    .on('mouseout', tip.hide);
 
 function type(d) {
   d.counts.media = +d.counts.media;
