@@ -9,9 +9,13 @@
        var following = data.users.map(function(item){
         return item.counts.follows;
       });
+      var username = data.users.map(function(item){
+        return item.username;
+      });
 
-followers.unshift('followers');
-following.unshift('following');
+
+followers.unshift('Followers:');
+following.unshift('Following:');
 
       var chart = c3.generate({
         bindto: '#chart',
@@ -19,8 +23,26 @@ following.unshift('following');
           columns: [
             followers,
             following 
-          ]
-        }
+          ],
+          type: 'bar'
+        },
+        zoom: {
+           enabled: true
+              },
+     axis: {
+           y: {
+             max: 1000
+              }
+             },
+
+tooltip: {
+        format: {
+            title: function (d) { return 'Username: ' + this.username; },
+            }
+          }
+
+
+
       });
     });
 })();
