@@ -1,23 +1,66 @@
 <div class="jumbotron">
   <div class="container">
-    <h1>Hi <a href="http://www.instagram.com/{{user.name}}">{{user.name}}</a>!</h1>
+  <h1>Instagram Data Visualizer</h1>
+    <p class="lead">Created by Christian Memije & Mayone Rajan</p>
   </div>
 </div>
 
+<div class="container">
+<div class="page-header">
+  <h1>Visualizations<small> Using data gathered from <a href="http://www.instagram.com/{{user.name}}">{{user.name}}</a>.</small></h1>
+</div>
+
 <div class="row">
-        <div class="col-xs-6">
-          <a class="btn btn-default" href="/c3visualization" role="button">My FrienC3 visualization</a>
-        </div>
-        <div class="col-xs-6">
-          <a class="btn btn-default" href="/visualization" role="button">D3 visualization</a>
-          </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-xs-6">
-          <a class="btn btn-default" href="/newc3visualization" role="button">View New C3 visualizationk</a>
-          </div>
-        <div class="col-xs-6">
-          <a class="btn btn-default" href="/newvisualization" role="button">View New D3 visualization</a>
-          </div>
-      </div>
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+       <h3 class="panel-title">C3 Visualization 1</h3>
+       </div>
+      <div class="panel-body">
+      View # of uploaded pics of those I follow.
+      <br><br>
+      <a class="btn btn-default" href="/c3visualization" role="button">View</a>
+  </div>
+</div>
+ </div> 
+ <div class="col-xs-6">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+       <h3 class="panel-title">D3 Visualization 1</h3>
+       </div>
+      <div class="panel-body">
+      View # of uploaded pics of those I follow.
+      <br><br>
+      <a class="btn btn-default" href="/visualization" role="button">View</a>
+  </div>
+</div>
+ </div>         
+    </div> 
+
+    <div class="row">
+  <div class="col-xs-6">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+       <h3 class="panel-title">C3 Visualization 2</h3>
+       </div>
+      <div class="panel-body">
+      View...
+      <br><br>
+      <a class="btn btn-default" href="/newc3visualization" role="button">View</a>
+  </div>
+</div>
+ </div> 
+ <div class="col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+       <h3 class="panel-title">D3 Visualization 2</h3>
+       </div>
+      <div class="panel-body">
+      View...
+      <br><br>
+      <a class="btn btn-default" href="/newvisualization" role="button">View</a>
+  </div>
+</div>
+ </div>         
+    </div>      
+</div>
