@@ -1,5 +1,3 @@
-
-
 (function() {
   $.getJSON( '/igMediaCounts')
     .done(function( data ) {

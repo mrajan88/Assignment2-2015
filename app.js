@@ -216,23 +216,55 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
-app.get('/feed', ensureAuthenticatedInstagram, function(req, res){
-  var query  = models.User.where({ ig_id: req.user.ig_id });
-  query.findOne(function (err, user) {
-    if (err) return err;
-    if (user) {
-      Instagram.users.self({ 
-        user_id: user.ig_id,
+app.get('/igUserFeed', ensureAuthenticatedInstagram, function(req, res){
+  var query = models.User.where({ig_id: req.user.ig_id});
+  query.findOne(function(err, user){
+    if(err) return err;
+    if(user){
+      var imageInfo = [];
+
+      Instagram.users.self({
         access_token: user.ig_access_token,
-        complete: function(data) {
-          var json = [];
-           json.push(data);
-           return res.json({users: json}); 
+        complete: function(data, pagination) {
+          var count = 0;
+          chunk = {'pagination': pagination, 'data': data};
+
+          data.forEach(function(item){
+            imageInfo.push(item);
+          });
+
+          var url = chunk.pagination.next_url;
+
+          async.whilst(
+              function(){
+                return (count < 15);
+              },
+              function(callback){
+                request({
+                  url: url,
+                  json: true
+                },function(error, response, body){
+                  if(!error && response.statusCode === 200){
+                    var newchunk = {'pagination': body.pagination, 'data': body.data};
+                    newchunk.data.forEach(function (i) {
+                      imageInfo.push(i);
+                    });
+                    url = newchunk.pagination.next_url;
+                    count++;
+                    callback();
+                  }
+                });
+              }, function(err){
+                if(err) return err;
+                return res.json({data: imageInfo});
+              }
+          );
         }
-      });   
+      });
     }
   });
 });
+
 
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
