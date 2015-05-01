@@ -1,13 +1,23 @@
-<p>ID: {{user.id}}</p>
-<p>Name: {{user.name}}</p>
-<p>Instagram ID:{{user.ig_id}}</p>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Hi <a href="http://www.instagram.com/{{user.name}}">{{user.name}}</a>!</h1>
+  </div>
+</div>
 
-<a href="/c3visualization">view C3 visualization</a>
-<br/>
-<a href="/visualization">view D3 visualization</a>
-<br/>
-<a href="/newc3visualization">view New C3 visualization</a>
-<br/>
-<a href="/newvisualization">view New D3 visualization</a>
-
-
+<div class="row">
+        <div class="col-xs-6">
+          <a class="btn btn-default" href="/c3visualization" role="button">My FrienC3 visualization</a>
+        </div>
+        <div class="col-xs-6">
+          <a class="btn btn-default" href="/visualization" role="button">D3 visualization</a>
+          </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <a class="btn btn-default" href="/newc3visualization" role="button">View New C3 visualizationk</a>
+          </div>
+        <div class="col-xs-6">
+          <a class="btn btn-default" href="/newvisualization" role="button">View New D3 visualization</a>
+          </div>
+      </div>

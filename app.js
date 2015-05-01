@@ -196,9 +196,6 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
                   user_id: item.id,
                   access_token: user.ig_access_token,
                   complete: function(data) {
-                  mediaCounts =  mediaCounts.sort(function(a,b) {
-                    return parseInt(b.counts.media) - parseInt(a.counts.media);
-                  } );
                   mediaCounts.push(data);
                   callback();
                   }

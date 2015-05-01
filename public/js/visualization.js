@@ -38,6 +38,7 @@ svg.call(tip);
 
 //get json object which contains media counts
 d3.json('/igMediaCounts', function(error, data) {
+  
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
   //set domain of y to be from 0 to the maximum media count returned
@@ -83,7 +84,24 @@ function type(d) {
   d.counts.media = +d.counts.media;
   return d;
 }
+//Sort Function
+d3.select("input").on("change", sort);
+function sort () {
+    var x0 = scaleX.domain(data.users.sort(this.checked
+        ? function(a, b) { return b.counts.media - a.counts.media; }
+        : function(a, b) { return d3.descending(a.username, b.username); })
+        .map(function(d) { return d.username; }))
+        .copy();
+    svg.selectAll(".bar")
+        .sort(function(a, b) { return x0(b.username) - x0(a.username); });
 
+    var transition = svg.transition().duration(1000);    
+    transition.selectAll(".bar")       
+        .attr("x", function(d) { return x0(d.username); });
+    transition.select(".x.axis")
+        .call(xAxis)
+        .selectAll("g")
+        .selectAll("text")
+        .style("text-anchor", "end");
+}
 });
-
-
