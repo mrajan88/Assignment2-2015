@@ -105,3 +105,4 @@ function sort () {
         .style("text-anchor", "end");
 }
 });
+//spinner.stop();
