@@ -216,6 +216,25 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
+app.get('/feed', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.self({ 
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        complete: function(data) {
+          // an array of asynchronous functions
+          var json = [];
+           mediaCounts.push(data);
+           return res.json({users: json}); 
+        }
+      });   
+    }
+  });
+});
+
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
 }); 
