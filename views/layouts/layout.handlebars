@@ -16,6 +16,8 @@
       <link rel="stylesheet" type="text/css" href="css/visualization.css">
       <link rel="stylesheet" type="text/css" href="css/loaders.css">
       <link rel="stylesheet" type="text/css" href="css/loaders.min.css">
+      <link rel="stylesheet" type="text/css" href="css/custom.css">
+
 </head>
 <body>
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -24,8 +26,36 @@
     <script src="js/c3.min.js"></script>
     <script src="js/d3-tip.js"></script>
     <script src="js/loaders.css.js"></script>
-    <div class=container>
-       {{{body}}}    
+    
+    <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Instagram Data Visualizer</a>
     </div>
-</body>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/c3visualization">C3.1</a></li>
+        <li><a href="/visualization">D3.1</a></li>
+        <li><a href="/newc3visualization">C3.2</a></li>
+        <li><a href="/newvisualization">D3.2</a></li>
+        
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Logout</a></li>
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav>
+       {{{body}}}    
+    </body>
 </html>
