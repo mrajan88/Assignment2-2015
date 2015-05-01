@@ -225,9 +225,8 @@ app.get('/feed', ensureAuthenticatedInstagram, function(req, res){
         user_id: user.ig_id,
         access_token: user.ig_access_token,
         complete: function(data) {
-          // an array of asynchronous functions
           var json = [];
-           mediaCounts.push(data);
+           json.push(data);
            return res.json({users: json}); 
         }
       });   
