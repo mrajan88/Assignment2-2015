@@ -225,6 +225,7 @@ app.get('/igUserFeed', ensureAuthenticatedInstagram, function(req, res){
 
       Instagram.users.self({
         access_token: user.ig_access_token,
+<<<<<<< HEAD
         complete: function(data, pagination) {
           var count = 0;
           chunk = {'pagination': pagination, 'data': data};
@@ -259,6 +260,12 @@ app.get('/igUserFeed', ensureAuthenticatedInstagram, function(req, res){
                 return res.json({data: imageInfo});
               }
           );
+=======
+        complete: function(data) {
+          var json = [];
+           json.push(data);
+           return res.json({feed: json}); 
+>>>>>>> c56fc33ba64fc5e0b7abdccb6bd5ed15d7c05c41
         }
       });
     }
