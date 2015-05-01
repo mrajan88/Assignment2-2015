@@ -80,6 +80,9 @@ d3.json('/igMediaCounts', function(error, data) {
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide);
 
+//stops spinner
+spinner.stop();
+
 function type(d) {
   d.counts.media = +d.counts.media;
   return d;
