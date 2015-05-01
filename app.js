@@ -227,7 +227,7 @@ app.get('/feed', ensureAuthenticatedInstagram, function(req, res){
         complete: function(data) {
           var json = [];
            json.push(data);
-           return res.json({users: json}); 
+           return res.json({feed: json}); 
         }
       });   
     }
