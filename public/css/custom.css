@@ -27,3 +27,7 @@ body { padding-top: 50px; }
 .btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
   background-color: #3F51B5;
 }
+
+.navbar-right {
+  background-color: red;
+}
