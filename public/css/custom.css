@@ -1,1 +1,8 @@
 body { padding-top: 50px; }
+.panel-primary {
+  border-color: #222222;
+}
+.panel-primary>.panel-heading {
+  background-color: #222222;
+  border-color: #222222;
+}
