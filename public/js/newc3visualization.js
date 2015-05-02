@@ -39,29 +39,3 @@ rank.unshift('Followers:Following Ratio');
       });
     });
 })();
-
-/*(function() {
-  $.getJSON( '/igMediaCounts')
-    .done(function( data ) {
-      
-var data = data.sort(function(item){
-        return ((b.followed_by/b.follows) - (a.followed_by/a.follows));
-      });
-
-      var rank = data.users.map(function(item){
-        return (item.followed_by/item.follows);
-      });
-
-      rank.unshift('Rank');
-
-      var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-          columns: [
-            rank 
-          ]
-        }
-      });
-    });
-})();
-*/
