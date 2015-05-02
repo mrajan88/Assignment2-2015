@@ -23,7 +23,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "test";
+    return "<img src='" + d.images.low_resolution.url + "' width='50' height='50'><br><br>" + d.likes.count + " Likes";
   })
 
 //create svg
