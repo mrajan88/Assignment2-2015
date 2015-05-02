@@ -37,12 +37,12 @@ svg.call(tip);
 
 
 //get json object which contains media counts
-d3.json('/igMediaCounts', function(error, data) {
+d3.json('/myphotos', function(error, data) {
   
   //set domain of x to be all the usernames contained in the data
-  scaleX.domain(data.users.map(function(d) { return d.username; }));
+  scaleX.domain(data.map(function(d) { return d.created_time; }));
   //set domain of y to be from 0 to the maximum media count returned
-  scaleY.domain([0, d3.max(data.users, function(d) { return d.counts.media; })]);
+  scaleY.domain([0, d3.max(data, function(d) { return d.likes.count; })]);
 
   //set up x axis
   svg.append("g")
@@ -66,46 +66,26 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Number of Photos");
+    .text("# Likes");
 
   //set up bars in bar graph
   svg.selectAll(".bar")
-    .data(data.users)
+    .data(data)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d) { return scaleX(d.username); })
+    .attr("x", function(d) { return scaleX(d.created_time); })
     .attr("width", scaleX.rangeBand())
-    .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .attr("y", function(d) { return scaleY(d.likes.count); })
+    .attr("height", function(d) { return height - scaleY(d.likes.count); })
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide);
-
+console.log("Reacehd 4");
 //stops spinner
 spinner.stop();
 
 function type(d) {
-  d.counts.media = +d.counts.media;
+  d.likes.count = +d.likes.count;
   return d;
 }
-//Sort Function
-d3.select("input").on("change", sort);
-function sort () {
-    var x0 = scaleX.domain(data.users.sort(this.checked
-        ? function(a, b) { return b.counts.media - a.counts.media; }
-        : function(a, b) { return d3.descending(a.username, b.username); })
-        .map(function(d) { return d.username; }))
-        .copy();
-    svg.selectAll(".bar")
-        .sort(function(a, b) { return x0(b.username) - x0(a.username); });
 
-    var transition = svg.transition().duration(1000);    
-    transition.selectAll(".bar")       
-        .attr("x", function(d) { return x0(d.username); });
-    transition.select(".x.axis")
-        .call(xAxis)
-        .selectAll("g")
-        .selectAll("text")
-        .style("text-anchor", "end");
-}
 });
-//spinner.stop();
