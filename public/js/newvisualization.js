@@ -19,11 +19,16 @@ var yAxis = d3.svg.axis()
   .scale(scaleY)
   .orient("left");
 
+var line = d3.svg.line()
+    .x(function(d) { return x(d.created_time); })
+    .y(function(d) { return y(d.likes.count); });
+
+
 var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<img src='" + d.images.low_resolution.url + "' width='50' height='50'><br><br>" + d.likes.count + " Likes";
+    return "<img src='" + d.images.low_resolution.url + "' width='75' height='75'><br><br>" + d.likes.count + " Likes";
   })
 
 //create svg
@@ -68,6 +73,12 @@ d3.json('/myphotos', function(error, data) {
     .style("text-anchor", "end")
     .text("# Likes");
 
+/*
+svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+*/
   //set up bars in bar graph
   svg.selectAll(".bar")
     .data(data)
@@ -79,7 +90,7 @@ d3.json('/myphotos', function(error, data) {
     .attr("height", function(d) { return height - scaleY(d.likes.count); })
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide);
-console.log("Reacehd 4");
+
 //stops spinner
 spinner.stop();
 
