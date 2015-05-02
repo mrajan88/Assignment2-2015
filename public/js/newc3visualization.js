@@ -7,40 +7,35 @@
        var following = data.users.map(function(item){
         return item.counts.follows;
       });
+       var rank = data.users.map(function(item){
+        return item.counts.followed_by / item.counts.follows;
+      });
       var username = data.users.map(function(item){
         return item.username;
       });
 
 
-followers.unshift('Followers:');
-following.unshift('Following:');
+followers.unshift('Followers');
+following.unshift('Following');
+rank.unshift('Followers:Following Ratio');
 
       var chart = c3.generate({
         bindto: '#chart',
         data: {
           columns: [
-            followers,
-            following 
+            rank
           ],
-          type: 'bar'
+          type: 'bar',
         },
         zoom: {
            enabled: true
               },
-     axis: {
-           y: {
-             max: 1000
-              }
-             },
-
-tooltip: {
-        format: {
-            title: function (d) { return 'Username: ' + this.username; },
-            }
-          }
-
-
-
+    axis: {
+        y: {
+            label: 'Followers:Following Ratio',
+            max: 3
+        }
+    }
       });
     });
 })();
