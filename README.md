@@ -11,7 +11,7 @@ Mayone Rajan - A10989334
 
 Design Principles
 
-1. Feedback - Buttons let the user know when they are pressed, and a loading sign shows up while the data is loading.
+1. Feedback - Buttons let the user know when they are pressed, and loading spinners show up while the data is loading.
 
 2.
 
