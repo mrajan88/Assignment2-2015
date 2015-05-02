@@ -28,7 +28,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<img src='" + d.images.low_resolution.url + "' width='75' height='75'><br><br>" + d.likes.count + " Likes";
+    return "<img src='" + d.images.low_resolution.url + "' width='75' height='75'><br><br>" + d.likes.count + " Likes" + "<br><a href='" + d.link + "'>View</a>";
   })
 
 //create svg
@@ -82,9 +82,8 @@ d3.json('/myphotos', function(error, data) {
      .attr("cy", function (d) {
        return y(d.likes.count);
      })
-     .attr("r", 5)    
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+     .attr("r", 3)    
+     .on('mouseover', tip.show);
 
 //stops spinner
 spinner.stop();
