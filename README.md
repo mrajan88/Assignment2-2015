@@ -5,9 +5,9 @@ Instagram Data Visualization
 
 https://instagramdatavisualizer.herokuapp.com/
 
-Christian Memije - A810569013
+Christian Memije
 
-Mayone Rajan - A10989334
+Mayone Rajan
 
 Design Principles
 
