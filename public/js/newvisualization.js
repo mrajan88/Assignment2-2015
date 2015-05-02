@@ -3,20 +3,20 @@ var width = 960 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
 
 //define scale of x to be from 0 to width of SVG, with .1 padding in between
-var scaleX = d3.scale.ordinal()
-  .rangeRoundBands([0, width], .1);
+var x = d3.scale.linear()
+  .range([0, width]);
 
 //define scale of y to be from the height of SVG to 0
-var scaleY = d3.scale.linear()
+var y = d3.scale.linear()
   .range([height, 0]);
 
 //define axes
 var xAxis = d3.svg.axis()
-  .scale(scaleX)
+  .scale(x)
   .orient("bottom");
 
 var yAxis = d3.svg.axis()
-  .scale(scaleY)
+  .scale(y)
   .orient("left");
 
 var line = d3.svg.line()
@@ -43,60 +43,49 @@ svg.call(tip);
 
 //get json object which contains media counts
 d3.json('/myphotos', function(error, data) {
-  
-  //set domain of x to be all the usernames contained in the data
-  scaleX.domain(data.map(function(d) { return d.created_time; }));
-  //set domain of y to be from 0 to the maximum media count returned
-  scaleY.domain([0, d3.max(data, function(d) { return d.likes.count; })]);
+  data.forEach(function(d) {
+    d.created_time = d.created_time;
+    d.likes.count = +d.likes.count;
+  });
+  x.domain(d3.extent(data, function(d) { return d.created_time; }));
+  y.domain(d3.extent(data, function(d) { return d.likes.count; }));
 
-  //set up x axis
   svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")") //move x-axis to the bottom
-    .call(xAxis)
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", function(d) {
-      return "rotate(-65)" 
-    });
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
 
-  //set up y axis
   svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
+      .attr("class", "y axis")
+      .call(yAxis)
     .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("# Likes");
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("# Likes");
 
-/*
-svg.append("path")
+  svg.append("path")
       .datum(data)
       .attr("class", "line")
       .attr("d", line);
-*/
-  //set up bars in bar graph
-  svg.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d) { return scaleX(d.created_time); })
-    .attr("width", scaleX.rangeBand())
-    .attr("y", function(d) { return scaleY(d.likes.count); })
-    .attr("height", function(d) { return height - scaleY(d.likes.count); })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide);
+
+
+  svg.selectAll(".circle")
+     .data(data)
+     .enter()
+     .append("svg:circle")
+     .attr("class", "circle")
+     .attr("cx", function (d) {
+        return x(d.created_time);
+     })
+     .attr("cy", function (d) {
+       return y(d.likes.count);
+     })
+     .attr("r", 5)    
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
 //stops spinner
 spinner.stop();
-
-function type(d) {
-  d.likes.count = +d.likes.count;
-  return d;
-}
-
 });
