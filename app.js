@@ -216,62 +216,43 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
   });
 });
 
-app.get('/igUserFeed', ensureAuthenticatedInstagram, function(req, res){
-  var query = models.User.where({ig_id: req.user.ig_id});
-  query.findOne(function(err, user){
-    if(err) return err;
-    if(user){
-      var imageInfo = [];
-
-      Instagram.users.self({
+app.get('/feed', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.self({ 
+        user_id: user.ig_id,
         access_token: user.ig_access_token,
-<<<<<<< HEAD
-        complete: function(data, pagination) {
-          var count = 0;
-          chunk = {'pagination': pagination, 'data': data};
-
-          data.forEach(function(item){
-            imageInfo.push(item);
-          });
-
-          var url = chunk.pagination.next_url;
-
-          async.whilst(
-              function(){
-                return (count < 15);
-              },
-              function(callback){
-                request({
-                  url: url,
-                  json: true
-                },function(error, response, body){
-                  if(!error && response.statusCode === 200){
-                    var newchunk = {'pagination': body.pagination, 'data': body.data};
-                    newchunk.data.forEach(function (i) {
-                      imageInfo.push(i);
-                    });
-                    url = newchunk.pagination.next_url;
-                    count++;
-                    callback();
-                  }
-                });
-              }, function(err){
-                if(err) return err;
-                return res.json({data: imageInfo});
-              }
-          );
-=======
         complete: function(data) {
           var json = [];
            json.push(data);
            return res.json({feed: json}); 
->>>>>>> c56fc33ba64fc5e0b7abdccb6bd5ed15d7c05c41
         }
-      });
+      });   
     }
   });
 });
 
+
+app.get('/myphotos', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.recent({ 
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        complete: function(data) {
+          var json2 = [];
+           json2.push(data);
+           json2 = json2[0];
+           return res.json(json2); 
+        }
+      });   
+    }
+  });
+});
 
 app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization');
