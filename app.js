@@ -247,6 +247,7 @@ app.get('/myphotos', ensureAuthenticatedInstagram, function(req, res){
           var json2 = [];
            json2.push(data);
            json2 = json2[0];
+           json2 = json2.reverse();
            return res.json(json2); 
         }
       });   
